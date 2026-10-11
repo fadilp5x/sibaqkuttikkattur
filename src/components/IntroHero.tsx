@@ -35,12 +35,34 @@ export default function IntroHero() {
   const [phase, setPhase] = useState(reduced ? 3 : 0);
   const [current, setCurrent] = useState(0);
   const [fading, setFading] = useState(false);
-  const [isMuted, setIsMuted] = useState(true);
+  const [isMuted, setIsMuted] = useState(false);
   const [bursting, setBursting] = useState(false);
   const [particles, setParticles] = useState<Particle[]>([]);
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const interacted = useRef(false);
   const timers = useRef<ReturnType<typeof setTimeout>[]>([]);
+
+  // Send unMute command to YouTube IFrame API
+  const unmuteIframe = useCallback(() => {
+    if (!iframeRef.current || !iframeRef.current.contentWindow) return;
+    try {
+      iframeRef.current.contentWindow.postMessage(
+        JSON.stringify({ event: 'command', func: 'unMute', args: '' }),
+        '*'
+      );
+      iframeRef.current.contentWindow.postMessage(
+        JSON.stringify({ event: 'command', func: 'setVolume', args: [100] }),
+        '*'
+      );
+      iframeRef.current.contentWindow.postMessage(
+        JSON.stringify({ event: 'command', func: 'playVideo', args: '' }),
+        '*'
+      );
+      setIsMuted(false);
+    } catch {
+      // ignore
+    }
+  }, []);
 
   // Phase animation
   useEffect(() => {
@@ -52,6 +74,37 @@ export default function IntroHero() {
     add(() => setPhase(3), 1800);
     return () => t.forEach(clearTimeout);
   }, [reduced]);
+
+  // Auto-play sound once phase 3 loads video player
+  useEffect(() => {
+    if (phase >= 3) {
+      unmuteIframe();
+      const t1 = setTimeout(unmuteIframe, 500);
+      const t2 = setTimeout(unmuteIframe, 1500);
+      return () => {
+        clearTimeout(t1);
+        clearTimeout(t2);
+      };
+    }
+  }, [phase, unmuteIframe]);
+
+  // Ensure sound turns on on first user gesture anywhere on screen (bypasses browser autoplay policy restrictions)
+  useEffect(() => {
+    const onFirstGesture = () => {
+      unmuteIframe();
+    };
+    const opts = { passive: true, once: true } as const;
+    window.addEventListener('click', onFirstGesture, opts);
+    window.addEventListener('touchstart', onFirstGesture, opts);
+    window.addEventListener('scroll', onFirstGesture, opts);
+    window.addEventListener('keydown', onFirstGesture, opts);
+    return () => {
+      window.removeEventListener('click', onFirstGesture);
+      window.removeEventListener('touchstart', onFirstGesture);
+      window.removeEventListener('scroll', onFirstGesture);
+      window.removeEventListener('keydown', onFirstGesture);
+    };
+  }, [unmuteIframe]);
 
   // Cinematic Slideshow with Black Transition
   useEffect(() => {
@@ -95,6 +148,16 @@ export default function IntroHero() {
       JSON.stringify({ event: 'command', func: command, args: '' }),
       '*'
     );
+    if (!nextMuted) {
+      iframeRef.current.contentWindow.postMessage(
+        JSON.stringify({ event: 'command', func: 'setVolume', args: [100] }),
+        '*'
+      );
+      iframeRef.current.contentWindow.postMessage(
+        JSON.stringify({ event: 'command', func: 'playVideo', args: '' }),
+        '*'
+      );
+    }
     setIsMuted(nextMuted);
   };
 
@@ -272,12 +335,13 @@ export default function IntroHero() {
               <div className="relative aspect-video overflow-hidden rounded-[1.8rem] bg-black shadow-2xl border border-white/10">
                 <iframe
                   ref={iframeRef}
-                  src="https://www.youtube-nocookie.com/embed/gBnLyPDYVpc?autoplay=1&mute=1&controls=0&playsinline=1&rel=0&modestbranding=1&loop=1&playlist=gBnLyPDYVpc&enablejsapi=1"
+                  onLoad={unmuteIframe}
+                  src="https://www.youtube-nocookie.com/embed/gBnLyPDYVpc?autoplay=1&mute=0&controls=0&playsinline=1&rel=0&modestbranding=1&loop=1&playlist=gBnLyPDYVpc&enablejsapi=1"
                   title="SIBAQ 2K26 Official Video"
                   allow="autoplay; encrypted-media"
                   allowFullScreen
                   className="absolute inset-0 h-full w-full border-0"
-                  loading="lazy"
+                  loading="eager"
                 />
 
                 {/* Accessible Audio Toggle Button */}
@@ -293,7 +357,7 @@ export default function IntroHero() {
                         <line x1="23" y1="9" x2="17" y2="15" />
                         <line x1="17" y1="9" x2="23" y2="15" />
                       </svg>
-                      <span className="font-head text-[11px] tracking-wide text-white/90">Sound On</span>
+                      <span className="font-head text-[11px] tracking-wide text-white/90">Sound Muted</span>
                     </>
                   ) : (
                     <>
@@ -301,7 +365,7 @@ export default function IntroHero() {
                         <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
                         <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07" />
                       </svg>
-                      <span className="font-head text-[11px] tracking-wide text-white/90">Playing 🔊</span>
+                      <span className="font-head text-[11px] tracking-wide text-white/90">Sound On 🔊</span>
                     </>
                   )}
                 </button>
