@@ -1,0 +1,392 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 30 1020 300" class="sibaq-logo-svg" role="img" aria-label="SIBAQ @KUTTIKKATTUR Logo">
+  <defs>
+    <!-- Color Gradients -->
+    <linearGradient id="sibaq-orange-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF6B3D"></stop>
+      <stop offset="100%" stop-color="#EB5728"></stop>
+    </linearGradient>
+
+    <linearGradient id="sibaq-green-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00A862"></stop>
+      <stop offset="100%" stop-color="#00824C"></stop>
+    </linearGradient>
+
+    <linearGradient id="sibaq-yellow-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFCB3B"></stop>
+      <stop offset="100%" stop-color="#F6B819"></stop>
+    </linearGradient>
+
+    <!-- Traveling Light Shimmer Gradient at 45 degrees -->
+    <linearGradient id="traveling-shimmer" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="white" stop-opacity="0"></stop>
+      <stop offset="35%" stop-color="white" stop-opacity="0"></stop>
+      <stop offset="50%" stop-color="white" stop-opacity="0.65"></stop>
+      <stop offset="65%" stop-color="white" stop-opacity="0"></stop>
+      <stop offset="100%" stop-color="white" stop-opacity="0"></stop>
+    </linearGradient>
+  </defs>
+
+  <!-- EMBEDDED CSS ANIMATION STYLES (Self-Contained & Infinite Loop) -->
+  <style>
+    :root {
+      --cycle-time: 5s;
+    }
+
+    /* Line Tracing Animations */
+    .trace-line {
+      stroke-dasharray: 600;
+      stroke-dashoffset: 600;
+      animation: strokeTrace 5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    }
+
+    .trace-line-delayed {
+      stroke-dasharray: 600;
+      stroke-dashoffset: 600;
+      animation: strokeTrace 5s cubic-bezier(0.4, 0, 0.2, 1) 0.3s infinite;
+    }
+
+    @keyframes strokeTrace {
+      0% {
+        stroke-dashoffset: 700;
+        opacity: 0;
+      }
+      8% {
+        opacity: 0.95;
+      }
+      38% {
+        stroke-dashoffset: 0;
+        opacity: 1;
+      }
+      68% {
+        stroke-dashoffset: 0;
+        opacity: 0.9;
+      }
+      88% {
+        stroke-dashoffset: -700;
+        opacity: 0;
+      }
+      89% {
+        stroke-dashoffset: 700;
+        opacity: 0;
+      }
+      100% {
+        stroke-dashoffset: 700;
+        opacity: 0;
+      }
+    }
+
+    /* Facet Subtle Breathing / Digital Assembly */
+    .facet-base {
+      transform-origin: center;
+      animation: facetBreathe 5s ease-in-out infinite;
+    }
+
+    @keyframes facetBreathe {
+      0%, 100% {
+        opacity: 0.96;
+        filter: drop-shadow(0 0 0px transparent);
+      }
+      35% {
+        opacity: 1;
+        filter: drop-shadow(0 0 8px rgba(235, 87, 40, 0.35));
+      }
+      70% {
+        opacity: 1;
+        filter: drop-shadow(0 0 12px rgba(246, 184, 25, 0.35));
+      }
+    }
+
+    /* Traveling Shimmer Beam (Translates at 45 deg angle) */
+    .shimmer-layer {
+      mix-blend-mode: overlay;
+      animation: sweepBeam 5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+      pointer-events: none;
+    }
+
+    @keyframes sweepBeam {
+      0% {
+        transform: translateX(-500px) translateY(-120px);
+        opacity: 0;
+      }
+      15% {
+        opacity: 0;
+      }
+      28% {
+        opacity: 0.75;
+      }
+      58% {
+        transform: translateX(650px) translateY(150px);
+        opacity: 0;
+      }
+      100% {
+        transform: translateX(650px) translateY(150px);
+        opacity: 0;
+      }
+    }
+
+    /* Accent Geometry Glow Cycles */
+    .accent-green {
+      animation: greenPulse 5s ease-in-out infinite;
+    }
+    @keyframes greenPulse {
+      0%, 100% { opacity: 0.92; filter: drop-shadow(0 0 0px transparent); }
+      25%, 75% { opacity: 1; filter: drop-shadow(0 0 7px rgba(0, 130, 76, 0.7)); }
+    }
+
+    .accent-yellow {
+      animation: yellowPulse 5s ease-in-out infinite;
+    }
+    @keyframes yellowPulse {
+      0%, 100% { opacity: 0.92; filter: drop-shadow(0 0 0px transparent); }
+      40%, 85% { opacity: 1; filter: drop-shadow(0 0 9px rgba(246, 184, 25, 0.75)); }
+    }
+
+    /* Subtext Letter Pulse Wave */
+    .subtext-char {
+      animation: charGlow 5s ease-in-out infinite;
+    }
+    @keyframes charGlow {
+      0%, 100% { opacity: 0.88; transform: translateY(0); }
+      45% { opacity: 1; transform: translateY(-1px); }
+      70% { opacity: 0.95; transform: translateY(0); }
+    }
+
+    /* Reduced motion: freeze all loops, hide the traveling shimmer */
+    @media (prefers-reduced-motion: reduce) {
+      .shimmer-layer {
+        animation: none !important;
+        opacity: 0 !important;
+      }
+      .trace-line,
+      .trace-line-delayed,
+      .facet-base,
+      .accent-green,
+      .accent-yellow,
+      .subtext-char {
+        animation: none !important;
+      }
+    }
+  </style>
+
+  <!-- MAIN GROUP: SIBAQ LETTERS -->
+  <g id="sibaq-wordmark" class="facet-base">
+
+    <!-- ============================================== -->
+    <!-- LETTER S -->
+    <!-- ============================================== -->
+    <g id="letter-S">
+      <!-- Main Orange Body of S -->
+      <!-- Top bar, chamfered corner, spine, and lower loop -->
+      <path d="M 102 38
+               L 220 38
+               L 220 125
+               L 174 125
+               L 174 84
+               L 100 84
+               L 66 118
+               L 66 124
+               L 155 124
+               L 220 148
+               L 220 250
+               L 106 250
+               L 52 196
+               L 52 136
+               L 96 136
+               L 96 204
+               L 172 204
+               L 172 166
+               L 104 144
+               L 52 126
+               L 52 88
+               Z" fill="#EB5728"></path>
+
+      <!-- S Yellow Accent (Bottom-left chamfer triangle) -->
+      <path d="M 52 216
+               L 86 250
+               L 52 250
+               Z" fill="#F6B819" class="accent-yellow"></path>
+
+      <!-- S Geometric Tracing Contour Lines -->
+      <path class="trace-line" d="M 52 216 L 86 250 L 220 250 L 220 148 L 155 124 L 66 124 L 52 88 L 102 38 L 220 38 L 220 125 L 174 125 L 174 84 L 100 84 L 66 118" fill="none" stroke="#FFCB3B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.8"></path>
+    </g>
+
+    <!-- ============================================== -->
+    <!-- LETTER I -->
+    <!-- ============================================== -->
+    <g id="letter-I">
+      <!-- Top-Left Green Polygon -->
+      <path d="M 246 38
+               L 302 38
+               L 246 94
+               Z" fill="#00824C" class="accent-green"></path>
+
+      <!-- Yellow 45° Diagonal Band -->
+      <polygon points="307,38 322,38 322,53 246,129 246,100" fill="#F6B819" class="accent-yellow"></polygon>
+
+      <!-- Solid Orange Lower Stem -->
+      <polygon points="246,140 322,64 322,250 246,250" fill="#EB5728"></polygon>
+
+      <!-- I Tracing Outline -->
+      <polygon points="246,38 322,38 322,250 246,250" fill="none" stroke="#00D27B" stroke-width="2.5" class="trace-line-delayed" opacity="0.8"></polygon>
+    </g>
+
+    <!-- ============================================== -->
+    <!-- LETTER B -->
+    <!-- ============================================== -->
+    <g id="letter-B">
+      <!-- Main Outer Orange B Structure with chamfered top-right and bottom-right -->
+      <path d="M 344 38
+               L 476 38
+               L 522 84
+               L 522 128
+               L 498 144
+               L 522 160
+               L 522 204
+               L 476 250
+               L 344 250
+               Z
+               M 396 78
+               L 468 78
+               L 468 124
+               L 396 124
+               Z
+               M 396 164
+               L 468 164
+               L 468 210
+               L 396 210
+               Z" fill="#EB5728" fill-rule="evenodd"></path>
+
+      <!-- Top Counter Accent: Golden Yellow Pennant / Wedge -->
+      <polygon points="468,78 468,124 416,101" fill="#F6B819" class="accent-yellow"></polygon>
+
+      <!-- Bottom Counter Accent: Forest Green Right Triangle -->
+      <polygon points="396,164 396,210 442,210" fill="#00824C" class="accent-green"></polygon>
+
+      <!-- B Tracing Contour -->
+      <path class="trace-line" d="M 344 250 L 344 38 L 476 38 L 522 84 L 522 128 L 498 144 L 522 160 L 522 204 L 476 250 Z" fill="none" stroke="#FF7F54" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.8"></path>
+    </g>
+
+    <!-- ============================================== -->
+    <!-- LETTER A -->
+    <!-- ============================================== -->
+    <g id="letter-A">
+      <!-- Left Leg Bottom Yellow Foot -->
+      <polygon points="544,250 580,250 586,212 553,225" fill="#F6B819" class="accent-yellow"></polygon>
+
+      <!-- Main Orange Body of A with Upper Triangle Counter & Lower Opening -->
+      <path d="M 614 38
+               L 670 38
+               L 744 250
+               L 692 250
+               L 676 198
+               L 608 198
+               L 592 204
+               L 558 217
+               L 558 210
+               L 614 38
+               Z
+               M 642 86
+               L 666 162
+               L 618 162
+               Z" fill="#EB5728" fill-rule="evenodd"></path>
+
+      <!-- A Tracing Contour -->
+      <path class="trace-line-delayed" d="M 544 250 L 614 38 L 670 38 L 744 250 L 692 250 L 676 198 L 608 198 L 580 250 Z" fill="none" stroke="#FFCB3B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.8"></path>
+    </g>
+
+    <!-- ============================================== -->
+    <!-- LETTER Q -->
+    <!-- ============================================== -->
+    <g id="letter-Q">
+      <!-- Main Orange O-Ring with Chamfered Corners and Cutout Gap for Green Tail -->
+      <path d="M 802 38
+               L 926 38
+               L 966 78
+               L 966 212
+               L 952 226
+               L 914 188
+               L 914 86
+               L 888 86
+               L 856 86
+               L 806 86
+               L 806 202
+               L 854 202
+               L 878 226
+               L 854 250
+               L 760 250
+               L 760 80
+               Z" fill="#EB5728"></path>
+
+      <!-- Additional orange inner corner fills to complete Q geometry -->
+      <polygon points="806,86 828,86 806,108" fill="#EB5728"></polygon>
+      <polygon points="914,86 892,86 914,108" fill="#EB5728"></polygon>
+
+      <!-- Lower right outer orange chunk above tail -->
+      <polygon points="966,160 966,196 930,160" fill="#EB5728" opacity="0.95"></polygon>
+
+      <!-- THE ICONIC FOREST GREEN TAIL OF Q -->
+      <!-- Slices through lower right at 45 degrees, projecting downwards -->
+      <polygon points="862,174 888,174 978,264 978,300 946,300 838,198" fill="#00824C" class="accent-green"></polygon>
+
+      <!-- Q Tracing Contour -->
+      <path class="trace-line" d="M 760 250 L 760 80 L 802 38 L 926 38 L 966 78 L 966 212 L 978 264 L 978 300 L 946 300 L 854 250 Z" fill="none" stroke="#00D27B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.8"></path>
+    </g>
+
+  </g>
+
+  <!-- TRAVELING 45-DEGREE LIGHT SHIMMER OVERLAY (Clipped to Letters) -->
+  <g class="shimmer-layer">
+    <rect x="-100" y="-100" width="300" height="500" fill="url(#traveling-shimmer)" transform="rotate(-45 350 150)"></rect>
+  </g>
+
+  <!-- ============================================== -->
+  <!-- SUBTEXT: @ KUTTIKKATTUR -->
+  <!-- 100% Pure SVG Vector Glyphs (No Font Dependency, Crisp Everywhere) -->
+  <!-- ============================================== -->
+  <g transform="translate(110, 290)">
+    <g id="subtext-group" class="subtext-char">
+    <!-- @ Symbol (Forest Green) -->
+    <g transform="translate(0, 0)">
+      <circle cx="24" cy="18" r="18" fill="none" stroke="#00824C" stroke-width="4.2"></circle>
+      <path d="M 24 10 A 7 7 0 1 0 31 18 L 31 21 A 2.5 2.5 0 0 1 27 23" fill="none" stroke="#00824C" stroke-width="3.2" stroke-linecap="round"></path>
+    </g>
+
+    <!-- K (Charcoal) -->
+    <path d="M 68 0 L 76 0 L 76 14 L 88 0 L 99 0 L 83 17 L 100 36 L 89 36 L 76 21 L 76 36 L 68 36 Z" fill="#232527"></path>
+
+    <!-- U (Brand Orange) -->
+    <path d="M 124 0 L 133 0 L 133 24 C 133 27 136 29 141 29 C 146 29 149 27 149 24 L 149 0 L 158 0 L 158 24 C 158 32 151 37 141 37 C 131 37 124 32 124 24 Z" fill="#EB5728"></path>
+
+    <!-- T (Charcoal) -->
+    <path d="M 184 0 L 210 0 L 210 8 L 202 8 L 202 36 L 192 36 L 192 8 L 184 8 Z" fill="#232527"></path>
+
+    <!-- T (Charcoal) -->
+    <path d="M 234 0 L 260 0 L 260 8 L 252 8 L 252 36 L 242 36 L 242 8 L 234 8 Z" fill="#232527"></path>
+
+    <!-- I (Charcoal) -->
+    <path d="M 284 0 L 293 0 L 293 36 L 284 36 Z" fill="#232527"></path>
+
+    <!-- K (Charcoal) -->
+    <path d="M 318 0 L 326 0 L 326 14 L 338 0 L 349 0 L 333 17 L 350 36 L 339 36 L 326 21 L 326 36 L 318 36 Z" fill="#232527"></path>
+
+    <!-- K (Forest Green) -->
+    <path d="M 372 0 L 380 0 L 380 14 L 392 0 L 403 0 L 387 17 L 404 36 L 393 36 L 380 21 L 380 36 L 372 36 Z" fill="#00824C"></path>
+
+    <!-- A (Golden Yellow) -->
+    <path d="M 436 0 L 446 0 L 462 36 L 452 36 L 447 25 L 435 25 L 430 36 L 420 36 Z M 441 11 L 437 20 L 445 20 Z" fill="#F6B819"></path>
+
+    <!-- T (Charcoal) -->
+    <path d="M 486 0 L 512 0 L 512 8 L 504 8 L 504 36 L 494 36 L 494 8 L 486 8 Z" fill="#232527"></path>
+
+    <!-- T (Charcoal) -->
+    <path d="M 536 0 L 562 0 L 562 8 L 554 8 L 554 36 L 544 36 L 544 8 L 536 8 Z" fill="#232527"></path>
+
+    <!-- U (Charcoal) -->
+    <path d="M 586 0 L 595 0 L 595 24 C 595 27 598 29 603 29 C 608 29 611 27 611 24 L 611 0 L 620 0 L 620 24 C 620 32 613 37 603 37 C 593 37 586 32 586 24 Z" fill="#232527"></path>
+
+    <!-- R (Charcoal) -->
+    <path d="M 644 0 L 664 0 C 671 0 676 4 676 11 C 676 16 672 20 666 21 L 677 36 L 666 36 L 656 22 L 653 22 L 653 36 L 644 36 Z M 653 7 L 662 7 C 665 7 667 8 667 11 C 667 14 665 15 662 15 L 653 15 Z" fill="#232527"></path>
+    </g>
+  </g>
+
+</svg>

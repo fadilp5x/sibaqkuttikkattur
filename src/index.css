@@ -1,0 +1,263 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* SIBAQ Festival '26 Brand Palette */
+  --sibaq-orange: #F15A24;
+  --sibaq-red: #E52B2B;
+  --sibaq-yellow: #FFC928;
+  --sibaq-green: #36AD50;
+  --sibaq-dark: #191919;
+  --sibaq-cream: #FFF8E8;
+  --sibaq-white: #FFFFFF;
+
+  /* Light website surfaces */
+  --sibaq-page-bg: #FFFFFF;
+  --sibaq-page-bg-soft: #FFFDF8;
+  --sibaq-card-bg: #FFFFFF;
+  --sibaq-quiz-bg: #FFF8E8;
+  --sibaq-text-primary: #191919;
+  --sibaq-text-secondary: #626262;
+  --sibaq-border: #EAE5DD;
+
+  /* Theme Controls */
+  --sibaq-decoration-opacity: 1;
+  --sibaq-motion-scale: 1;
+}
+
+[data-festival-theme="calm"] {
+  --sibaq-decoration-opacity: 0.15;
+  --sibaq-motion-scale: 0;
+}
+
+[data-festival-theme="calm"] .wheel-spin,
+[data-festival-theme="calm"] .ring-spin,
+[data-festival-theme="calm"] .animate-pennant,
+[data-festival-theme="calm"] .animate-floaty,
+[data-festival-theme="calm"] .animate-pulse-ring,
+[data-festival-theme="calm"] .animate-pulse-slow,
+[data-festival-theme="calm"] .animate-spin-slow,
+[data-festival-theme="calm"] .animate-spin-continuous,
+[data-festival-theme="calm"] .animate-sway,
+[data-festival-theme="calm"] .animate-float-horizontal,
+[data-festival-theme="calm"] .animate-shimmer,
+[data-festival-theme="calm"] .anim-traversal,
+[data-festival-theme="calm"] .anim-traversal-compact,
+[data-festival-theme="calm"] .anim-traversal-wide,
+[data-festival-theme="calm"] .anim-wheel-rear,
+[data-festival-theme="calm"] .anim-wheel-front,
+[data-festival-theme="calm"] .anim-rider-bob,
+[data-festival-theme="calm"] .anim-pedal-crank,
+[data-festival-theme="calm"] .anim-hand-flex,
+[data-festival-theme="calm"] .anim-arm-flex,
+[data-festival-theme="calm"] .anim-cloud-drift-1,
+[data-festival-theme="calm"] .anim-cloud-drift-2,
+[data-festival-theme="calm"] .anim-puppet-sway,
+[data-festival-theme="calm"] .anim-wind-stream,
+[data-festival-theme="calm"] .anim-spot-l,
+[data-festival-theme="calm"] .anim-spot-r,
+[data-festival-theme="calm"] .anim-flag,
+[data-festival-theme="calm"] .anim-bulb-a,
+[data-festival-theme="calm"] .anim-bulb-b,
+[data-festival-theme="calm"] .anim-trophy,
+[data-festival-theme="calm"] .anim-gold-spark-1,
+[data-festival-theme="calm"] .anim-gold-spark-2,
+[data-festival-theme="calm"] .anim-gold-spark-3,
+[data-festival-theme="calm"] .anim-gold-spark-4,
+[data-festival-theme="calm"] .anim-sponsor-star-1,
+[data-festival-theme="calm"] .anim-sponsor-star-2,
+[data-festival-theme="calm"] .anim-sponsor-star-3,
+[data-festival-theme="calm"] .anim-sponsor-star-4,
+[data-festival-theme="calm"] .anim-don-lantern-l,
+[data-festival-theme="calm"] .anim-don-lantern-r,
+[data-festival-theme="calm"] .anim-don-tassel-l,
+[data-festival-theme="calm"] .anim-don-tassel-r,
+[data-festival-theme="calm"] .anim-don-glow,
+[data-festival-theme="calm"] .anim-don-ember-1,
+[data-festival-theme="calm"] .anim-don-ember-2,
+[data-festival-theme="calm"] .anim-don-ember-3,
+[data-festival-theme="calm"] .anim-don-ember-4,
+[data-festival-theme="calm"] .anim-don-star-1,
+[data-festival-theme="calm"] .anim-don-star-2,
+[data-festival-theme="calm"] .anim-don-star-3,
+[data-festival-theme="calm"] .anim-don-star-4,
+[data-festival-theme="calm"] .anim-don-bracket,
+[data-festival-theme="calm"] .anim-mega-recoil,
+[data-festival-theme="calm"] .anim-mega-shard-1,
+[data-festival-theme="calm"] .anim-mega-shard-2,
+[data-festival-theme="calm"] .anim-mega-shard-3,
+[data-festival-theme="calm"] .anim-mega-shockwave,
+[data-festival-theme="calm"] .anim-mega-ribbon,
+[data-festival-theme="calm"] .anim-confetti-1,
+[data-festival-theme="calm"] .anim-confetti-2,
+[data-festival-theme="calm"] .anim-confetti-3,
+[data-festival-theme="calm"] .anim-confetti-4,
+[data-festival-theme="calm"] .anim-confetti-5,
+[data-festival-theme="calm"] .anim-mega-star-1,
+[data-festival-theme="calm"] .anim-mega-star-2,
+[data-festival-theme="calm"] .anim-mega-star-3,
+[data-festival-theme="calm"] .anim-mega-star-4,
+[data-festival-theme="calm"] .anim-mega-star-5 {
+  animation-play-state: paused !important;
+}
+
+[data-festival-theme="calm"] .animate-marquee,
+[data-festival-theme="calm"] .animate-marquee-fast {
+  animation-duration: 40s !important;
+}
+
+[data-festival-theme="calm"] .fest-decoration {
+  opacity: 0.15 !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --sibaq-motion-scale: 0;
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+  }
+  body {
+    @apply bg-paper text-ink font-body antialiased;
+    background-image: radial-gradient(1200px 500px at 80% -10%, rgba(255, 77, 46, 0.05), transparent 60%),
+      radial-gradient(900px 420px at -10% 30%, rgba(255, 179, 0, 0.03), transparent 60%),
+      radial-gradient(900px 500px at 90% 90%, rgba(47, 184, 107, 0.03), transparent 60%);
+    background-attachment: fixed;
+  }
+  ::selection {
+    background: #ffb300;
+    color: #ffffff;
+  }
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #ffffff;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #e5e7eb;
+    border-radius: 8px;
+  }
+  :focus-visible {
+    outline: 2px solid #ffb300;
+    outline-offset: 2px;
+  }
+}
+
+@layer components {
+  .container-x {
+    @apply mx-auto w-full max-w-6xl px-5 sm:px-8;
+  }
+  .card-dark {
+    @apply rounded-3xl border border-black/5 bg-white shadow-sm;
+  }
+  .chip {
+    @apply inline-flex items-center gap-1.5 rounded-full border border-black/10 bg-black/5 px-3.5 py-1.5 text-xs font-semibold tracking-wide text-ink;
+  }
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-flame px-7 py-3.5 font-head text-sm font-extrabold uppercase tracking-widest text-white shadow-[0_10px_30px_-8px_rgba(255,77,46,0.6)] transition-transform duration-200 hover:scale-[1.03] active:scale-95;
+  }
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-black/20 px-7 py-3.5 font-head text-sm font-bold uppercase tracking-widest text-ink transition-colors hover:border-marigold hover:text-marigold;
+  }
+  .btn-marigold {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-marigold px-7 py-3.5 font-head text-sm font-extrabold uppercase tracking-widest text-night shadow-[0_10px_30px_-8px_rgba(255,179,0,0.55)] transition-transform duration-200 hover:scale-[1.03] active:scale-95;
+  }
+  .kicker {
+    @apply font-head text-[11px] font-extrabold uppercase tracking-[0.3em] text-marigold;
+  }
+  .display {
+    @apply font-display uppercase leading-[0.95] tracking-wide;
+  }
+  .text-gradient-fest {
+    @apply bg-gradient-to-r from-flame via-honey to-leaf bg-clip-text text-transparent;
+  }
+}
+
+@layer utilities {
+  .diamond {
+    @apply inline-block rotate-45;
+  }
+  .safe-bottom {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .pattern-dots {
+    background-image: radial-gradient(rgba(26, 17, 20, 0.08) 1px, transparent 1px);
+    background-size: 22px 22px;
+  }
+  .text-stroke-cream {
+    -webkit-text-stroke: 1.5px rgba(26, 17, 20, 0.15);
+    color: transparent;
+  }
+  .glow-flame {
+    box-shadow: 0 0 60px -10px rgba(255, 77, 46, 0.55);
+  }
+}
+
+/* Slower decorative spin for the play ring */
+@keyframes ring-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.ring-spin {
+  animation: ring-spin 9s linear infinite;
+}
+
+/* Hero slideshow crossfade */
+@keyframes heroFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+.hero-slide-enter {
+  animation: heroFadeIn 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Festival divider */
+.fest-divider {
+  @apply h-px bg-gradient-to-r from-transparent via-marigold/30 to-transparent;
+}
+
+/* Segmented wheel spin */
+@keyframes wheel-spin {
+  to { transform: rotate(360deg); }
+}
+.wheel-spin {
+  animation: wheel-spin 20s linear infinite;
+}
+
+/* Pennant wiggle */
+@keyframes pennant-wiggle {
+  0% { transform: rotate(0deg); }
+  50% { transform: rotate(3deg); }
+  100% { transform: rotate(0deg); }
+}
+.animate-pennant {
+  animation: pennant-wiggle 3s ease-in-out infinite;
+  transform-origin: top center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

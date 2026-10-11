@@ -1,0 +1,186 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 480" width="100%" height="100%" fill="none">
+  <defs>
+    <style>
+      /* Embedded Autonomous CSS Keyframes */
+      @keyframes mega-recoil-pulse {
+        0%, 100% { transform: rotate(0deg) scale(1); }
+        22% { transform: rotate(-2deg) scale(1.025) translate(3px, -2px); }
+        45% { transform: rotate(0.6deg) scale(0.995); }
+      }
+      @keyframes mega-shard-burst-1 {
+        0%, 100% { transform: translate(0, 0) scale(1); }
+        50% { transform: translate(16px, -12px) scale(1.15); filter: drop-shadow(0 0 8px #FFC928); }
+      }
+      @keyframes mega-shard-burst-2 {
+        0%, 100% { transform: translate(0, 0) scale(1); }
+        50% { transform: translate(22px, 0px) scale(1.18); filter: drop-shadow(0 0 8px #E52B2B); }
+      }
+      @keyframes mega-shard-burst-3 {
+        0%, 100% { transform: translate(0, 0) scale(1); }
+        50% { transform: translate(14px, 14px) scale(1.15); filter: drop-shadow(0 0 8px #36AD50); }
+      }
+      @keyframes mega-shockwave-expand {
+        0% { transform: scale(0.92); opacity: 0.2; }
+        50% { transform: scale(1.06); opacity: 0.95; }
+        100% { transform: scale(1.22); opacity: 0; }
+      }
+      @keyframes mega-streamer-undulate {
+        0%, 100% { transform: rotate(0deg) scale(1); }
+        50% { transform: rotate(2.2deg) scale(1.02) translateY(-4px); }
+      }
+      @keyframes mega-confetti-particle {
+        0% { transform: translate(0, 0) rotate(0deg) scale(0.6); opacity: 0; }
+        25% { opacity: 1; }
+        100% { transform: translate(var(--tx, 32px), var(--ty, -28px)) rotate(160deg) scale(1.1); opacity: 0; }
+      }
+      @keyframes mega-star-twinkle {
+        0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.8; }
+        50% { transform: scale(1.35) rotate(40deg); opacity: 1; }
+      }
+
+      .anim-mega-recoil { animation: mega-recoil-pulse 2.2s cubic-bezier(0.34, 1.56, 0.64, 1) infinite; transform-origin: 150px 300px; }
+      .anim-mega-shard-1 { animation: mega-shard-burst-1 2.2s ease-in-out infinite; }
+      .anim-mega-shard-2 { animation: mega-shard-burst-2 2.2s ease-in-out infinite 0.15s; }
+      .anim-mega-shard-3 { animation: mega-shard-burst-3 2.2s ease-in-out infinite 0.3s; }
+      .anim-mega-shockwave { animation: mega-shockwave-expand 2.2s ease-out infinite; transform-origin: 370px 180px; }
+      .anim-mega-ribbon { animation: mega-streamer-undulate 4.2s ease-in-out infinite; transform-origin: center center; }
+
+      .anim-confetti-1 { --tx: 36px; --ty: -35px; animation: mega-confetti-particle 2.4s ease-out infinite; }
+      .anim-confetti-2 { --tx: 48px; --ty: -10px; animation: mega-confetti-particle 2.7s ease-out infinite 0.4s; }
+      .anim-confetti-3 { --tx: 38px; --ty: 24px; animation: mega-confetti-particle 2.2s ease-out infinite 0.8s; }
+      .anim-confetti-4 { --tx: 22px; --ty: -42px; animation: mega-confetti-particle 2.9s ease-out infinite 1.2s; }
+      .anim-confetti-5 { --tx: 42px; --ty: 12px; animation: mega-confetti-particle 2.5s ease-out infinite 0.6s; }
+
+      .anim-mega-star-1 { animation: mega-star-twinkle 2.5s ease-in-out infinite; transform-origin: 255px 70px; }
+      .anim-mega-star-2 { animation: mega-star-twinkle 3.1s ease-in-out infinite 0.7s; transform-origin: 445px 46px; }
+      .anim-mega-star-3 { animation: mega-star-twinkle 2.7s ease-in-out infinite 1.3s; transform-origin: 120px 146px; }
+      .anim-mega-star-4 { animation: mega-star-twinkle 3.3s ease-in-out infinite 0.4s; transform-origin: 95px 372px; }
+      .anim-mega-star-5 { animation: mega-star-twinkle 2.6s ease-in-out infinite 1.6s; transform-origin: 525px 302px; }
+
+      @media (prefers-reduced-motion: reduce) {
+        .anim-mega-recoil, .anim-mega-shard-1, .anim-mega-shard-2, .anim-mega-shard-3,
+        .anim-mega-shockwave, .anim-mega-ribbon, .anim-confetti-1, .anim-confetti-2,
+        .anim-confetti-3, .anim-confetti-4, .anim-confetti-5,
+        .anim-mega-star-1, .anim-mega-star-2, .anim-mega-star-3, .anim-mega-star-4, .anim-mega-star-5 {
+          animation: none !important;
+        }
+      }
+    </style>
+
+    <linearGradient id="megaHornGold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FFE07A" />
+      <stop offset="30%" stop-color="#FFC928" />
+      <stop offset="85%" stop-color="#F15A24" />
+      <stop offset="100%" stop-color="#D94B18" />
+    </linearGradient>
+
+    <linearGradient id="megaInsideRed" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#9C1717" />
+      <stop offset="60%" stop-color="#E52B2B" />
+      <stop offset="100%" stop-color="#F15A24" />
+    </linearGradient>
+
+    <linearGradient id="megaRibbonGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#E52B2B" />
+      <stop offset="40%" stop-color="#F15A24" />
+      <stop offset="80%" stop-color="#FFC928" />
+      <stop offset="100%" stop-color="#36AD50" />
+    </linearGradient>
+
+    <radialGradient id="megaAuraGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FFC928" stop-opacity="0.35" />
+      <stop offset="100%" stop-color="#FFC928" stop-opacity="0" />
+    </radialGradient>
+
+    <filter id="megaElevationShadow" x="-10%" y="-10%" width="125%" height="125%">
+      <feDropShadow dx="0" dy="12" stdDeviation="15" flood-color="#191919" flood-opacity="0.14" />
+    </filter>
+  </defs>
+
+  <g id="megaphone-streamers" class="anim-mega-ribbon" filter="url(#megaElevationShadow)">
+    <path d="M 35,270 C 20,200 95,145 180,185 L 175,225 C 105,190 55,235 65,285 Z" fill="#E52B2B" />
+    <path d="M 40,265 C 25,195 100,140 185,180 L 182,205 C 112,170 62,215 70,270 Z" fill="#F15A24" />
+    <path d="M 45,260 C 30,190 105,135 190,175 L 188,190 C 118,155 68,200 75,255 Z" fill="#36AD50" />
+
+    <path d="M 230,350 C 265,410 350,420 420,380 C 470,350 510,360 550,390 L 545,418 C 495,385 455,375 410,405 C 330,455 240,430 205,360 Z" fill="url(#megaRibbonGrad)" stroke="#191919" stroke-width="2.5" stroke-linejoin="round" />
+    <path d="M 230,350 C 250,380 290,395 330,390 L 325,405 C 280,410 240,390 215,365 Z" fill="#9C1717" />
+  </g>
+
+  <g id="megaphone-fanfare-shards" filter="url(#megaElevationShadow)">
+    <circle cx="370" cy="180" r="140" fill="url(#megaAuraGlow)" />
+
+    <g class="anim-mega-shockwave">
+      <path d="M 370,80 C 430,105 475,155 490,215" stroke="#FFC928" stroke-width="5" stroke-linecap="round" stroke-dasharray="14 10" />
+      <path d="M 410,65 C 480,95 530,155 545,225" stroke="#F15A24" stroke-width="4" stroke-linecap="round" stroke-dasharray="8 8" />
+    </g>
+
+    <g class="anim-mega-shard-1" transform="translate(390, 75)">
+      <polygon points="0,40 65,0 45,55" fill="#FFC928" stroke="#191919" stroke-width="2.5" stroke-linejoin="round" />
+      <polygon points="0,40 45,55 20,65" fill="#F15A24" stroke="#191919" stroke-width="2.5" stroke-linejoin="round" />
+    </g>
+
+    <g class="anim-mega-shard-2" transform="translate(435, 145)">
+      <polygon points="0,20 85,0 60,40" fill="#E52B2B" stroke="#191919" stroke-width="2.5" stroke-linejoin="round" />
+      <polygon points="0,20 60,40 30,48" fill="#F15A24" stroke="#191919" stroke-width="2.5" stroke-linejoin="round" />
+    </g>
+
+    <g class="anim-mega-shard-3" transform="translate(395, 230)">
+      <polygon points="0,0 70,30 40,48" fill="#FFC928" stroke="#191919" stroke-width="2.5" stroke-linejoin="round" />
+      <polygon points="0,0 40,48 10,38" fill="#36AD50" stroke="#191919" stroke-width="2.5" stroke-linejoin="round" />
+    </g>
+  </g>
+
+  <g id="megaphone-confetti-spray">
+    <polygon points="410,130 416,134 414,142 406,138" fill="#FFC928" class="anim-confetti-1" />
+    <rect x="420" y="160" width="7" height="7" rx="1.5" fill="#E52B2B" class="anim-confetti-2" />
+    <polygon points="400,200 408,202 404,210 396,206" fill="#36AD50" class="anim-confetti-3" />
+    <circle cx="430" cy="110" r="3.5" fill="#F15A24" class="anim-confetti-4" />
+    <polygon points="415,180 422,185 418,192 410,188" fill="#FFC928" class="anim-confetti-5" />
+    <circle cx="445" cy="170" r="3" fill="#FFFFFF" class="anim-confetti-2" />
+  </g>
+
+  <g id="megaphone-chassis" class="anim-mega-recoil" filter="url(#megaElevationShadow)">
+    <g id="megaphone-handle">
+      <path d="M 170,270 L 175,395 C 175,412 195,418 208,410 L 222,400 C 230,394 232,382 230,372 L 215,260 Z" fill="#E52B2B" stroke="#191919" stroke-width="4" stroke-linejoin="round" />
+      <line x1="182" y1="310" x2="216" y2="298" stroke="#191919" stroke-width="3" stroke-linecap="round" />
+      <line x1="184" y1="330" x2="218" y2="318" stroke="#191919" stroke-width="3" stroke-linecap="round" />
+      <line x1="186" y1="350" x2="220" y2="338" stroke="#191919" stroke-width="3" stroke-linecap="round" />
+      <line x1="188" y1="370" x2="222" y2="358" stroke="#191919" stroke-width="3" stroke-linecap="round" />
+      <path d="M 172,295 C 160,298 160,314 174,316 Z" fill="#FFC928" stroke="#191919" stroke-width="2.5" />
+    </g>
+
+    <rect x="110" y="222" width="46" height="66" rx="14" transform="rotate(-30 110 222)" fill="#E52B2B" stroke="#191919" stroke-width="3.5" />
+    <circle cx="112" cy="226" r="16" fill="#FFC928" stroke="#191919" stroke-width="3" />
+    <circle cx="112" cy="226" r="6" fill="#191919" />
+
+    <path d="M 148,200 L 194,174 L 218,214 L 172,240 Z" fill="#36AD50" stroke="#191919" stroke-width="3.5" stroke-linejoin="round" />
+    <line x1="160" y1="194" x2="184" y2="234" stroke="#FFC928" stroke-width="5" stroke-linecap="round" />
+
+    <path d="M 194,174 C 230,154 280,120 330,78 L 388,180 C 330,220 270,250 218,214 Z" fill="url(#megaHornGold)" stroke="#191919" stroke-width="4" stroke-linejoin="round" />
+    <path d="M 215,164 C 255,142 305,108 340,78" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" opacity="0.75" />
+
+    <ellipse cx="348" cy="188" rx="46" ry="118" transform="rotate(-30 348 188)" fill="#E52B2B" stroke="#191919" stroke-width="4.5" />
+    <ellipse cx="348" cy="188" rx="36" ry="106" transform="rotate(-30 348 188)" fill="url(#megaInsideRed)" stroke="#191919" stroke-width="3" />
+
+    <ellipse cx="348" cy="188" rx="14" ry="42" transform="rotate(-30 348 188)" fill="#FFC928" stroke="#191919" stroke-width="2.5" />
+    <ellipse cx="348" cy="188" rx="6" ry="20" transform="rotate(-30 348 188)" fill="#191919" />
+  </g>
+
+  <g id="megaphone-confetti-sparkles">
+    <g class="anim-mega-star-1">
+      <path d="M 255,55 Q 255,70 240,70 Q 255,70 255,85 Q 255,70 270,70 Q 255,70 255,55 Z" fill="#FFC928" />
+    </g>
+    <g class="anim-mega-star-2">
+      <path d="M 445,35 Q 445,46 434,46 Q 445,46 445,57 Q 445,46 456,46 Q 445,46 445,35 Z" fill="#F15A24" />
+    </g>
+    <g class="anim-mega-star-3">
+      <path d="M 120,135 Q 120,146 109,146 Q 120,146 120,157 Q 120,146 131,146 Q 120,146 120,135 Z" fill="#36AD50" />
+    </g>
+    <g class="anim-mega-star-4">
+      <path d="M 95,355 Q 95,372 78,372 Q 95,372 95,389 Q 95,372 112,372 Q 95,372 95,355 Z" fill="#FFC928" />
+    </g>
+    <g class="anim-mega-star-5">
+      <path d="M 525,290 Q 525,302 513,302 Q 525,302 525,314 Q 525,302 537,302 Q 525,302 525,290 Z" fill="#E52B2B" />
+    </g>
+  </g>
+</svg>

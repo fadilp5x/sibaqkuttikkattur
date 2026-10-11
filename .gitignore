@@ -1,0 +1,13 @@
+node_modules/
+dist/
+data/*.db
+data/*.db-journal
+data/*.db-wal
+data/*.db-shm
+uploads/*
+!uploads/.gitkeep
+.env
+tools/extracted/
+tools/facts.txt
+*.log
+.DS_Store
