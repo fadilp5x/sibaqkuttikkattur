@@ -35,8 +35,36 @@ export default function HomePreviews() {
   const [media, setMedia] = useState<MediaItem[]>([]);
   const [sponsors, setSponsors] = useState<SponsorPackage[]>([]);
   
-  // Team carousel index
+  // Team Mobile Carousel state & autoplay
   const [teamSlide, setTeamSlide] = useState(0);
+  const [isTeamPaused, setIsTeamPaused] = useState(false);
+  const touchStartX = useRef<number | null>(null);
+
+  // Auto-changing slideshow for mobile team section (3.8 seconds per slide)
+  useEffect(() => {
+    if (reduced || isTeamPaused || team.length <= 1) return;
+    const timer = setInterval(() => {
+      setTeamSlide((prev) => (prev + 1) % team.length);
+    }, 3800);
+    return () => clearInterval(timer);
+  }, [reduced, isTeamPaused, team.length]);
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+    setIsTeamPaused(true);
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX.current === null) return;
+    const diff = touchStartX.current - e.changedTouches[0].clientX;
+    if (diff > 40) {
+      setTeamSlide((prev) => (prev + 1) % team.length);
+    } else if (diff < -40) {
+      setTeamSlide((prev) => (prev - 1 + team.length) % team.length);
+    }
+    touchStartX.current = null;
+    setTimeout(() => setIsTeamPaused(false), 2200);
+  };
 
   // Media Slideshow state
   const [activeMedia, setActiveMedia] = useState(0);
@@ -152,63 +180,122 @@ export default function HomePreviews() {
             ))}
           </div>
 
-          {/* Mobile Swipeable Carousel */}
-          <div className="sm:hidden mt-8">
-            <div className="relative overflow-hidden rounded-[2rem] border-2 border-[#E8DFD2] bg-white p-5 shadow-md">
-              {team.length > 0 && (
-                <div className="flex flex-col items-center text-center">
-                  <div className="relative aspect-[4/5] w-56 max-w-full overflow-hidden rounded-2xl bg-cream shadow-inner">
-                    {team[teamSlide]?.photo ? (
-                      <img
-                        src={team[teamSlide].photo}
-                        alt={team[teamSlide].name}
-                        className="h-full w-full object-cover"
-                      />
-                    ) : (
-                      <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-flame/20 to-marigold/20">
-                        <span className="display text-5xl text-flame font-bold">
-                          {team[teamSlide]?.name.charAt(0)}
-                        </span>
-                      </div>
-                    )}
-                  </div>
-                  <h3 className="mt-4 font-head text-lg font-extrabold text-ink">
-                    {team[teamSlide]?.name}
-                  </h3>
-                  <p className="mt-1 text-xs font-bold text-flame uppercase tracking-wider">
-                    {team[teamSlide]?.role}
-                  </p>
-                  {team[teamSlide]?.category && (
-                    <p className="mt-0.5 text-xs text-ink/60">{team[teamSlide].category}</p>
-                  )}
+          {/* Mobile Auto-Changing Animated Slideshow */}
+          <div
+            className="sm:hidden mt-8"
+            onMouseEnter={() => setIsTeamPaused(true)}
+            onMouseLeave={() => setIsTeamPaused(false)}
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
+          >
+            <div className="relative overflow-hidden rounded-[2.5rem] border-2 border-[#E8DFD2] bg-white p-6 shadow-lg">
+              {/* Subtle Auto-Advance Progress Line */}
+              {!isTeamPaused && team.length > 1 && !reduced && (
+                <div className="absolute top-0 inset-x-0 h-1 bg-black/5 overflow-hidden">
+                  <div
+                    key={teamSlide}
+                    className="h-full bg-gradient-to-r from-flame via-marigold to-leaf"
+                    style={{
+                      animation: 'teamSlideProgress 3.8s linear forwards',
+                    }}
+                  />
                 </div>
               )}
 
-              {/* Mobile Carousel Controls */}
+              {/* Header Badge & Counter */}
+              <div className="flex items-center justify-between mb-4">
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-flame/10 px-3 py-1 font-head text-[10px] font-extrabold uppercase tracking-widest text-flame">
+                  <span className="diamond h-1.5 w-1.5 bg-flame animate-pulse" />
+                  Festival Committee
+                </span>
+                {team.length > 0 && (
+                  <span className="font-head text-[11px] font-extrabold tracking-wider text-ink/40">
+                    {teamSlide + 1} / {team.length}
+                  </span>
+                )}
+              </div>
+
+              {/* Sliding Carousel Track */}
+              <div className="overflow-hidden w-full">
+                <div
+                  className="flex transition-transform duration-500 ease-out"
+                  style={{
+                    transform: `translateX(-${teamSlide * 100}%)`,
+                  }}
+                >
+                  {team.map((m, idx) => (
+                    <div
+                      key={m.id || idx}
+                      className="w-full shrink-0 flex flex-col items-center text-center px-1"
+                    >
+                      <div className="relative aspect-[4/5] w-60 max-w-full overflow-hidden rounded-2xl bg-cream shadow-inner border border-black/5">
+                        {m.photo ? (
+                          <img
+                            src={m.photo}
+                            alt={m.name}
+                            className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
+                          />
+                        ) : (
+                          <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-flame/20 to-marigold/20">
+                            <span className="display text-5xl text-flame font-bold">
+                              {m.name.charAt(0)}
+                            </span>
+                          </div>
+                        )}
+                        <span className="diamond absolute top-3 right-3 h-2 w-2 bg-marigold shadow-md" aria-hidden="true" />
+                      </div>
+
+                      <h3 className="mt-5 font-head text-xl font-extrabold text-ink tracking-tight">
+                        {m.name}
+                      </h3>
+                      <p className="mt-1 text-xs font-bold text-flame uppercase tracking-wider">
+                        {m.role}
+                      </p>
+                      {m.category && (
+                        <p className="mt-0.5 text-xs font-medium text-ink/60">{m.category}</p>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Mobile Carousel Controls & Dot Indicators */}
               <div className="mt-6 flex items-center justify-between border-t border-black/5 pt-4">
                 <button
-                  onClick={() => setTeamSlide((prev) => (prev - 1 + team.length) % team.length)}
+                  type="button"
+                  onClick={() => {
+                    setIsTeamPaused(true);
+                    setTeamSlide((prev) => (prev - 1 + team.length) % team.length);
+                  }}
                   aria-label="Previous team member"
-                  className="flex h-10 w-10 items-center justify-center rounded-full border border-black/15 bg-white text-ink hover:bg-cream"
+                  className="flex h-10 w-10 items-center justify-center rounded-full border border-black/15 bg-white text-ink shadow-sm transition-transform active:scale-90 hover:bg-cream"
                 >
                   ←
                 </button>
-                <div className="flex gap-1.5">
+                <div className="flex gap-1.5 items-center">
                   {team.map((_, idx) => (
                     <button
                       key={idx}
-                      onClick={() => setTeamSlide(idx)}
-                      aria-label={`Go to slide ${idx + 1}`}
-                      className={`h-2 rounded-full transition-all ${
-                        teamSlide === idx ? 'w-6 bg-flame' : 'w-2 bg-black/20'
+                      type="button"
+                      onClick={() => {
+                        setIsTeamPaused(true);
+                        setTeamSlide(idx);
+                      }}
+                      aria-label={`Go to team member ${idx + 1}`}
+                      className={`h-2 rounded-full transition-all duration-300 ${
+                        teamSlide === idx ? 'w-6 bg-flame' : 'w-2 bg-black/20 hover:bg-black/40'
                       }`}
                     />
                   ))}
                 </div>
                 <button
-                  onClick={() => setTeamSlide((prev) => (prev + 1) % team.length)}
+                  type="button"
+                  onClick={() => {
+                    setIsTeamPaused(true);
+                    setTeamSlide((prev) => (prev + 1) % team.length);
+                  }}
                   aria-label="Next team member"
-                  className="flex h-10 w-10 items-center justify-center rounded-full border border-black/15 bg-white text-ink hover:bg-cream"
+                  className="flex h-10 w-10 items-center justify-center rounded-full border border-black/15 bg-white text-ink shadow-sm transition-transform active:scale-90 hover:bg-cream"
                 >
                   →
                 </button>
