@@ -1,18 +1,32 @@
-import { Link, useLocation } from 'react-router-dom';
+import { useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useReducedMotion } from '../lib/hooks';
+import GameEntranceOverlay from './GameEntranceOverlay';
 
 export default function FloatingPlay() {
   const { pathname } = useLocation();
+  const navigate = useNavigate();
   const reduced = useReducedMotion();
+  const [isEntering, setIsEntering] = useState(false);
+
   if (pathname.startsWith('/game') || pathname.startsWith('/admin')) return null;
 
   return (
-    <Link
-      to="/game"
-      aria-label="Play Game"
-      className="group fixed bottom-6 right-4 z-40 flex items-center gap-3 animate-fade-up outline-none focus-visible:ring-4 focus-visible:ring-flame rounded-full"
-      style={{ marginBottom: 'env(safe-area-inset-bottom, 0px)' }}
-    >
+    <>
+      <GameEntranceOverlay
+        isOpen={isEntering}
+        onComplete={() => {
+          setIsEntering(false);
+          navigate('/game');
+        }}
+      />
+      <button
+        type="button"
+        onClick={() => setIsEntering(true)}
+        aria-label="Play Game"
+        className="group fixed bottom-6 right-4 z-40 flex items-center gap-3 animate-fade-up outline-none focus-visible:ring-4 focus-visible:ring-flame rounded-full cursor-pointer"
+        style={{ marginBottom: 'env(safe-area-inset-bottom, 0px)' }}
+      >
       {/* PLAY GAME label card */}
       <div className="hidden sm:flex h-10 items-center justify-center rounded-full bg-gradient-to-r from-flame to-marigold px-5 font-head text-sm font-extrabold tracking-[0.1em] text-white shadow-lg shadow-flame/20 transition-transform duration-300 group-hover:-translate-x-1">
         PLAY GAME
@@ -63,6 +77,7 @@ export default function FloatingPlay() {
           </g>
         </svg>
       </div>
-    </Link>
+      </button>
+    </>
   );
 }

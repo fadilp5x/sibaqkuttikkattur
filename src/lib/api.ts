@@ -42,33 +42,33 @@ export interface SiteSettings {
 }
 
 export interface Stat {
-  id: number;
+  id: number | string;
   value: string;
   label: string;
   note: string;
 }
 export interface Partner {
-  id: number;
+  id: number | string;
   name: string;
   logo: string;
   url: string;
 }
 export interface TeamMember {
-  id: number;
+  id: number | string;
   name: string;
   role: string;
   category: string;
   photo: string;
 }
 export interface MediaItem {
-  id: number;
+  id: number | string;
   type: 'image' | 'video';
   title: string;
   src: string;
   poster: string;
 }
 export interface Voucher {
-  id: number;
+  id: number | string;
   title: string;
   brand: string;
   description: string;
@@ -77,7 +77,7 @@ export interface Voucher {
   image: string;
 }
 export interface SponsorPackage {
-  id: number;
+  id: number | string;
   name: string;
   tagline: string;
   slots: string;
@@ -85,13 +85,13 @@ export interface SponsorPackage {
   benefits: string[];
 }
 export interface Faq {
-  id: number;
+  id: number | string;
   question: string;
   answer: string;
 }
 export interface QuizState {
   none: boolean;
-  id?: number;
+  id?: number | string;
   date?: string;
   question?: string;
   options?: string[];
@@ -125,7 +125,7 @@ export const api = {
   quizToday: (participant: string) => getJson<QuizState>(`/api/quiz/today?participant=${encodeURIComponent(participant)}`),
   leaderboard: (date?: string) => getJson<LeaderboardData>(`/api/leaderboard${date ? `?date=${date}` : ''}`),
   leaderboardDates: () => getJson<string[]>('/api/leaderboard/dates'),
-  submitQuiz: (body: { questionId: number; optionIndex: number; name: string; participant: string }) =>
+  submitQuiz: (body: { questionId: number | string; optionIndex: number; name: string; participant: string }) =>
     fetch('/api/quiz/submit', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

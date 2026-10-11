@@ -9,7 +9,7 @@ export default function ChatWidget() {
   const location = useLocation();
   const [open, setOpen] = useState(false);
   const [faqs, setFaqs] = useState<Faq[]>([]);
-  const [active, setActive] = useState<number | null>(null);
+  const [active, setActive] = useState<number | string | null>(null);
   const panelRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {

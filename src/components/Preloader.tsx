@@ -46,8 +46,9 @@ const PATTERNS: Milestone[][] = [
   ],
 ];
 
-// Easing function for smooth number transitions (easeOutQuad)
 const easeOutQuad = (t: number) => t * (2 - t);
+
+const PHRASE = 'SOMETHING BIG IS COMING';
 
 export default function Preloader({ onDone }: { onDone: () => void }) {
   const reduced = useReducedMotion();
@@ -61,7 +62,7 @@ export default function Preloader({ onDone }: { onDone: () => void }) {
     let fadeTimeout: ReturnType<typeof setTimeout>;
     let doneTimeout: ReturnType<typeof setTimeout>;
 
-    // 1. Minimum 4500ms duration (reduced motion gets a concise 600ms courtesy transition)
+    // 1. Minimum 4500ms duration (reduced motion gets 600ms)
     const minTimePromise = new Promise((resolve) => setTimeout(resolve, reduced ? 600 : 4500));
 
     // 2. Application ready signal
@@ -71,8 +72,7 @@ export default function Preloader({ onDone }: { onDone: () => void }) {
       } else {
         const onLoad = () => resolve();
         window.addEventListener('load', onLoad, { once: true });
-        // Fallback safety cap so visitor is never trapped if load event is missed
-        setTimeout(resolve, 8000);
+        setTimeout(resolve, 8000); // Safety fallback cap
       }
     });
 
@@ -92,7 +92,7 @@ export default function Preloader({ onDone }: { onDone: () => void }) {
 
         const tick = (now: number) => {
           if (unmounted) return;
-          
+
           if (currentStep >= pattern.length) {
             setProgress(100);
             resolve();
@@ -102,8 +102,7 @@ export default function Preloader({ onDone }: { onDone: () => void }) {
           const step = pattern[currentStep];
           const elapsed = now - startTime;
           const t = Math.min(1, elapsed / step.d);
-          
-          // Only apply easing if we are actually progressing (not paused)
+
           const isPause = step.p === startVal;
           const easedT = isPause ? t : easeOutQuad(t);
 
@@ -123,12 +122,10 @@ export default function Preloader({ onDone }: { onDone: () => void }) {
 
     const animPromise = animateProgress();
 
-    // Coordinate all three conditions:
-    // Minimum 4.5 seconds elapsed AND progress animation complete AND application ready
+    // Coordinate all conditions
     Promise.all([minTimePromise, appReadyPromise, animPromise]).then(() => {
       if (unmounted) return;
-      setProgress(100); // Ensure exactly 100%
-      // Brief hold before fading out
+      setProgress(100);
       fadeTimeout = setTimeout(() => {
         if (unmounted) return;
         onDone();
@@ -136,7 +133,7 @@ export default function Preloader({ onDone }: { onDone: () => void }) {
         doneTimeout = setTimeout(() => {
           if (unmounted) return;
           setFinished(true);
-        }, reduced ? 0 : 500); // 500ms fade transition
+        }, reduced ? 0 : 500);
       }, 150);
     });
 
@@ -157,49 +154,71 @@ export default function Preloader({ onDone }: { onDone: () => void }) {
         leaving ? 'opacity-0 pointer-events-none' : 'opacity-100 pointer-events-auto'
       }`}
     >
-      {/* 1. Top thin loading line at the very top of viewport */}
+      {/* 1. Thin loading line at the top edge of viewport */}
       <div className="fixed top-0 left-0 right-0 h-[3px] bg-black/5 z-20">
-        <div 
+        <div
           className="h-full bg-gradient-to-r from-flame via-marigold to-leaf shadow-[0_0_8px_rgba(255,201,40,0.6)]"
           style={{ width: `${progress}%`, transition: 'none' }}
         />
       </div>
 
       <div className="pattern-dots absolute inset-0 opacity-40 pointer-events-none" />
-      
-      {/* Vertically stacked composition */}
-      <div className="relative z-10 flex h-full max-h-[100svh] w-full max-w-4xl flex-col items-center justify-between sm:justify-center gap-3 sm:gap-4 md:gap-5 my-auto">
+
+      {/* Central unified vertical stack */}
+      <div className="relative z-10 flex w-full max-w-3xl flex-col items-center justify-center gap-3 sm:gap-4 my-auto">
         
-        {/* TOP: Existing animated SIBAQ logo */}
-        <div className={`flex-shrink-0 transition-transform duration-700 ease-out ${leaving ? '-translate-y-3 opacity-90' : 'translate-y-0 opacity-100'}`}>
+        {/* 1. Animated SIBAQ logo — positioned immediately above the cyclist landscape */}
+        <div className={`transition-all duration-700 ease-out ${leaving ? '-translate-y-2 opacity-90' : 'translate-y-0 opacity-100'}`}>
           <img
             src="/media/sibaq-preloader.svg"
             alt="SIBAQ National Arts Fest"
-            className="h-11 sm:h-14 md:h-16 w-auto max-w-[85vw] object-contain drop-shadow-sm select-none"
+            className="h-10 sm:h-12 md:h-14 w-auto max-w-[80vw] object-contain drop-shadow-sm select-none"
           />
         </div>
 
-        {/* MIDDLE: Animated cyclist landscape (natural 920:620 aspect ratio) */}
-        <div className={`w-full max-w-[min(94vw,760px)] flex-1 min-h-0 max-h-[min(56vh,480px)] flex items-center justify-center transition-transform duration-700 ease-out ${leaving ? 'scale-[1.02]' : 'scale-100'}`}>
-          <div className="w-full h-full aspect-[920/620] max-h-full flex items-center justify-center">
+        {/* 2. Animated Cyclist Landscape (Natural 920:620 aspect ratio) */}
+        <div className={`w-full max-w-[min(94vw,700px)] flex items-center justify-center transition-all duration-700 ease-out ${leaving ? 'scale-[1.01]' : 'scale-100'}`}>
+          <div className="w-full aspect-[920/620] max-h-[min(48vh,380px)] flex items-center justify-center">
             <CyclistLandscape className="w-full h-full" />
           </div>
         </div>
-        
-        {/* BOTTOM: Loading progress & animated percentage counter */}
-        <div className="flex-shrink-0 flex flex-col items-center gap-2.5 sm:gap-3">
+
+        {/* 3. Text: SOMETHING BIG IS COMING with subtle letter-by-letter reveal */}
+        <div className="flex items-center justify-center gap-1 sm:gap-1.5 px-4 text-center">
+          {PHRASE.split('').map((char, index) => {
+            const letterProgress = (index / PHRASE.length) * 80;
+            const isRevealed = progress >= letterProgress || reduced;
+            return (
+              <span
+                key={index}
+                className={`font-display text-base sm:text-xl md:text-2xl tracking-[0.16em] uppercase font-extrabold transition-all duration-300 ${
+                  char === ' ' ? 'w-2 sm:w-3' : ''
+                } ${
+                  isRevealed
+                    ? 'opacity-100 translate-y-0 text-gradient-fest'
+                    : 'opacity-20 translate-y-1 text-ink/30'
+                }`}
+              >
+                {char}
+              </span>
+            );
+          })}
+        </div>
+
+        {/* 4. Progress information and percentage counter */}
+        <div className="flex flex-col items-center gap-2 sm:gap-2.5 mt-1 sm:mt-2">
           {/* Progress Bar */}
-          <div className="h-[3px] sm:h-[4px] w-48 sm:w-64 max-w-[75vw] overflow-hidden rounded-full bg-black/10">
+          <div className="h-[3px] sm:h-[4px] w-44 sm:w-60 max-w-[75vw] overflow-hidden rounded-full bg-black/10">
             <div
               className="h-full rounded-full bg-gradient-to-r from-flame via-marigold to-leaf transition-[width] duration-150 ease-out"
               style={{ width: `${progress}%` }}
             />
           </div>
 
-          {/* Animated Percentage */}
+          {/* Percentage */}
           <div className="flex items-center gap-2">
             <span className="diamond h-1.5 w-1.5 bg-flame" aria-hidden="true" />
-            <p className="font-display text-base sm:text-lg tracking-[0.2em] text-ink/80 tabular-nums font-bold">
+            <p className="font-display text-sm sm:text-base tracking-[0.2em] text-ink/80 tabular-nums font-bold">
               {Math.round(progress)}%
             </p>
             <span className="diamond h-1.5 w-1.5 bg-leaf" aria-hidden="true" />

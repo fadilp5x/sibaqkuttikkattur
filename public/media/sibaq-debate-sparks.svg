@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 380" width="100%" height="100%" fill="none">
+  <defs>
+    <style>
+      /* Embedded Autonomous CSS Keyframes for Debate Sparks */
+      @keyframes deb-bubble-left {
+        0%, 100% { transform: translateX(0px) rotate(0deg); }
+        50% { transform: translateX(-10px) rotate(-1.5deg); }
+      }
+      @keyframes deb-bubble-right {
+        0%, 100% { transform: translateX(0px) rotate(0deg); }
+        50% { transform: translateX(10px) rotate(1.5deg); }
+      }
+      @keyframes deb-spark-burst {
+        0%, 100% { transform: scale(1) rotate(0deg); filter: drop-shadow(0 0 4px #FFC928); }
+        50% { transform: scale(1.35) rotate(45deg); filter: drop-shadow(0 0 12px #FFC928); }
+      }
+      @keyframes deb-ripple-drift {
+        0% { transform: scale(0.85); opacity: 0.2; }
+        50% { transform: scale(1.05); opacity: 0.9; }
+        100% { transform: scale(1.25); opacity: 0; }
+      }
+      @keyframes deb-diamond-mote {
+        0% { transform: translateY(0) scale(0.6); opacity: 0; }
+        30% { opacity: 1; }
+        100% { transform: translateY(-28px) scale(1.1); opacity: 0; }
+      }
+
+      .anim-deb-left { animation: deb-bubble-left 3.6s ease-in-out infinite; transform-origin: 160px 190px; }
+      .anim-deb-right { animation: deb-bubble-right 3.6s ease-in-out infinite; transform-origin: 360px 170px; }
+      .anim-deb-spark { animation: deb-spark-burst 2.4s ease-in-out infinite; transform-origin: 270px 160px; }
+      .anim-deb-ripple { animation: deb-ripple-drift 2.8s ease-out infinite; transform-origin: 270px 160px; }
+      .anim-deb-mote-1 { animation: deb-diamond-mote 2.6s ease-out infinite; }
+      .anim-deb-mote-2 { animation: deb-diamond-mote 3.1s ease-out infinite 0.7s; }
+
+      @media (prefers-reduced-motion: reduce) {
+        .anim-deb-left, .anim-deb-right, .anim-deb-spark, .anim-deb-ripple, .anim-deb-mote-1, .anim-deb-mote-2 {
+          animation: none !important;
+        }
+      }
+    </style>
+
+    <linearGradient id="debBubbleLeftGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FF7544" />
+      <stop offset="70%" stop-color="#F15A24" />
+      <stop offset="100%" stop-color="#D94B18" />
+    </linearGradient>
+
+    <linearGradient id="debBubbleRightGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#4CD06B" />
+      <stop offset="70%" stop-color="#36AD50" />
+      <stop offset="100%" stop-color="#24873B" />
+    </linearGradient>
+
+    <filter id="debShadow" x="-10%" y="-10%" width="120%" height="125%">
+      <feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#191919" flood-opacity="0.18" />
+    </filter>
+  </defs>
+
+  <!-- Center Acoustic Radiance Ripples -->
+  <g class="anim-deb-ripple" stroke="#FFC928" stroke-width="2.5" stroke-dasharray="8 6" opacity="0.6">
+    <ellipse cx="270" cy="160" rx="80" ry="70" />
+    <ellipse cx="270" cy="160" rx="110" ry="95" stroke="#E52B2B" stroke-width="2" />
+  </g>
+
+  <!-- Left Speech Node (Orange Proposition Node) -->
+  <g id="debate-left-bubble" class="anim-deb-left" filter="url(#debShadow)">
+    <path d="M 80,110 C 80,75 115,55 170,55 L 230,55 C 285,55 315,75 315,110 L 315,180 C 315,215 285,235 230,235 L 180,235 L 130,275 L 145,235 L 125,235 C 95,235 80,210 80,180 Z" 
+          fill="url(#debBubbleLeftGrad)" stroke="#191919" stroke-width="3.5" stroke-linejoin="round" />
+    
+    <!-- Dialogue Track Glyphs inside Left Bubble -->
+    <rect x="120" y="100" width="120" height="9" rx="4.5" fill="#FFF8E8" opacity="0.9" />
+    <rect x="120" y="125" width="85" height="9" rx="4.5" fill="#FFC928" />
+    <rect x="120" y="150" width="140" height="9" rx="4.5" fill="#FFF8E8" opacity="0.65" />
+    
+    <!-- Accent Indicator Badge -->
+    <circle cx="106" cy="80" r="5" fill="#FFC928" stroke="#191919" stroke-width="1.8" />
+  </g>
+
+  <!-- Right Speech Node (Emerald Opposition / Synthesis Node) -->
+  <g id="debate-right-bubble" class="anim-deb-right" filter="url(#debShadow)">
+    <path d="M 450,140 C 450,105 415,85 360,85 L 305,85 C 255,85 225,105 225,140 L 225,210 C 225,245 255,265 305,265 L 350,265 L 395,305 L 385,265 L 405,265 C 435,265 450,240 450,210 Z" 
+          fill="url(#debBubbleRightGrad)" stroke="#191919" stroke-width="3.5" stroke-linejoin="round" />
+    
+    <!-- Dialogue Track Glyphs inside Right Bubble -->
+    <rect x="260" y="130" width="145" height="9" rx="4.5" fill="#FFF8E8" opacity="0.9" />
+    <rect x="300" y="155" width="105" height="9" rx="4.5" fill="#FFC928" />
+    <rect x="275" y="180" width="130" height="9" rx="4.5" fill="#FFF8E8" opacity="0.65" />
+
+    <!-- Accent Indicator Badge -->
+    <circle cx="425" cy="110" r="5" fill="#E52B2B" stroke="#191919" stroke-width="1.8" />
+  </g>
+
+  <!-- Center Convergence Clash Diamond & Intellectual Sparks -->
+  <g id="debate-center-sparks" class="anim-deb-spark">
+    <!-- Center Grand Star Spark -->
+    <polygon points="270,135 278,152 295,160 278,168 270,185 262,168 245,160 262,152" fill="#FFC928" stroke="#191919" stroke-width="2.5" />
+    <circle cx="270" cy="160" r="4.5" fill="#FFFFFF" />
+
+    <!-- Satellite Intellectual Motifs -->
+    <polygon points="255,120 260,125 255,130 250,125" fill="#E52B2B" />
+    <polygon points="285,190 290,195 285,200 280,195" fill="#36AD50" />
+  </g>
+
+  <!-- Rising Intellectual Dialogue Motes -->
+  <g id="debate-rising-motes">
+    <polygon points="230,100 234,104 230,108 226,104" fill="#FFC928" class="anim-deb-mote-1" />
+    <polygon points="310,90 314,94 310,98 306,94" fill="#E52B2B" class="anim-deb-mote-2" />
+    <polygon points="270,225 274,229 270,233 266,229" fill="#36AD50" class="anim-deb-mote-1" />
+  </g>
+</svg>

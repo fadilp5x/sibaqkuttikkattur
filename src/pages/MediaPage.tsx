@@ -2,6 +2,7 @@ import MediaGallery from '../components/MediaGallery';
 import PennantGarland from '../components/PennantGarland';
 import GeometricSparkles from '../components/GeometricSparkles';
 import FestivalRibbon from '../components/FestivalRibbon';
+import Soundwave from '../components/Soundwave';
 import Reveal from '../components/Reveal';
 
 export default function MediaPage() {
@@ -27,6 +28,11 @@ export default function MediaPage() {
             <p className="mt-5 text-base sm:text-lg leading-relaxed text-ink/75 max-w-2xl mx-auto font-medium">
               Photographs, performances and stories that capture the energy of the fest.
             </p>
+
+            {/* Autonomous Animated Soundwave Supporting Illustration */}
+            <div className="mt-8 mx-auto w-full max-w-md sm:max-w-lg h-20 sm:h-24">
+              <Soundwave className="w-full h-full drop-shadow-sm" />
+            </div>
           </div>
 
           {/* Featured Hero Media Composition */}

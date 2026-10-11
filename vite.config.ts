@@ -10,6 +10,13 @@ export default defineConfig({
       '/uploads': 'http://localhost:3001',
     },
   },
+  preview: {
+    port: 4173,
+    proxy: {
+      '/api': 'http://localhost:3001',
+      '/uploads': 'http://localhost:3001',
+    },
+  },
   build: {
     outDir: 'dist',
     sourcemap: false,

@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { useSite } from '../lib/site';
-import { useTheme } from '../lib/theme';
 
 export const NAV_LINKS = [
   { to: '/', label: 'Home' },
@@ -15,36 +14,6 @@ export const NAV_LINKS = [
   { to: '/promote', label: 'Want to Promote?' },
   { to: '/sponsors', label: 'Become a Sponsor' },
 ];
-
-function ThemeToggle() {
-  const { theme, setTheme } = useTheme();
-  const isFestival = theme === 'festival';
-  return (
-    <button
-      onClick={() => setTheme(isFestival ? 'calm' : 'festival')}
-      className="flex h-11 items-center gap-2 rounded-full border border-black/10 bg-white px-3 sm:px-4 text-[10px] font-extrabold uppercase tracking-wider text-ink transition-colors hover:border-marigold focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-marigold"
-      aria-label={isFestival ? "Switch to Calm Mode" : "Switch to Festival Mode"}
-      role="switch"
-      aria-checked={isFestival}
-    >
-      {isFestival ? (
-        <>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-flame">
-            <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
-          </svg>
-          <span className="hidden sm:inline">Festival Mode</span>
-        </>
-      ) : (
-        <>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-leaf">
-            <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.52-4.48 10-10 10Z"/>
-          </svg>
-          <span className="hidden sm:inline">Calm Mode</span>
-        </>
-      )}
-    </button>
-  );
-}
 
 export default function SiteHeader() {
   const site = useSite();
@@ -82,7 +51,6 @@ export default function SiteHeader() {
             <img src="/media/sibaq-logo.svg" alt="" className="h-11 w-auto" />
           </Link>
           <div className="flex items-center gap-2 sm:gap-3">
-            <ThemeToggle />
             <button
               onClick={() => setOpen(true)}
               aria-label="Open menu"

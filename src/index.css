@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 :root {
-  /* SIBAQ Festival '26 Brand Palette */
+  /* SIBAQ Festival '26 Official Brand Palette */
   --sibaq-orange: #F15A24;
   --sibaq-red: #E52B2B;
   --sibaq-yellow: #FFC928;
@@ -12,6 +12,24 @@
   --sibaq-cream: #FFF8E8;
   --sibaq-white: #FFFFFF;
 
+  --sibaq-page: #FFF8E8;
+  --sibaq-text: #191919;
+  --sibaq-muted: #686868;
+  --sibaq-border: #E8DFD2;
+
+  --sibaq-action: linear-gradient(
+    110deg,
+    #E52B2B 0%,
+    #F15A24 100%
+  );
+
+  --sibaq-celebration: linear-gradient(
+    110deg,
+    #F15A24 0%,
+    #FFC928 52%,
+    #36AD50 100%
+  );
+
   /* Light website surfaces */
   --sibaq-page-bg: #FFFFFF;
   --sibaq-page-bg-soft: #FFFDF8;
@@ -19,7 +37,6 @@
   --sibaq-quiz-bg: #FFF8E8;
   --sibaq-text-primary: #191919;
   --sibaq-text-secondary: #626262;
-  --sibaq-border: #EAE5DD;
 
   /* Theme Controls */
   --sibaq-decoration-opacity: 1;
@@ -247,6 +264,116 @@
 .animate-pennant {
   animation: pennant-wiggle 3s ease-in-out infinite;
   transform-origin: top center;
+}
+
+/* ===================================================================
+   CARNIVAL GAME ARENA ANIMATION SYSTEM
+   =================================================================== */
+@keyframes wheel-spin-clockwise {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+@keyframes wheel-spin-counter {
+  from { transform: rotate(360deg); }
+  to { transform: rotate(0deg); }
+}
+.anim-wheel-rotate {
+  animation: wheel-spin-clockwise 18s linear infinite;
+  transform-origin: center center;
+}
+.anim-wheel-reverse {
+  animation: wheel-spin-counter 24s linear infinite;
+  transform-origin: center center;
+}
+.anim-play-wheel-spin {
+  animation: wheel-spin-clockwise 6.5s linear infinite;
+  transform-origin: center center;
+}
+
+/* Fullscreen Portal Velvet Curtains Parting */
+@keyframes curtain-part-left {
+  0% { transform: scaleX(1); }
+  100% { transform: scaleX(0.04); }
+}
+@keyframes curtain-part-right {
+  0% { transform: scaleX(1); }
+  100% { transform: scaleX(0.04); }
+}
+.curtain-anim-left {
+  animation: curtain-part-left 1.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  transform-origin: left center;
+}
+.curtain-anim-right {
+  animation: curtain-part-right 1.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  transform-origin: right center;
+}
+
+/* Multi-Ring Entrance Spinner Rings */
+@keyframes ring-spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+@keyframes ring-spin-fast {
+  from { transform: rotate(360deg); }
+  to { transform: rotate(0deg); }
+}
+.anim-spin-ring-1 { animation: ring-spin-slow 3.2s linear infinite; transform-origin: 150px 150px; }
+.anim-spin-ring-2 { animation: ring-spin-fast 4.5s linear infinite; transform-origin: 150px 150px; }
+
+/* Festoon Pennants and Celebration Garlands */
+@keyframes pennant-gentle-sway {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(3.5px) rotate(1deg); }
+}
+.anim-pennants {
+  animation: pennant-gentle-sway 3.4s ease-in-out infinite;
+  transform-origin: top center;
+}
+
+/* Carnival Light Bulbs Twinkling Cadence */
+@keyframes bulb-twinkle-a {
+  0%, 100% { opacity: 0.45; filter: drop-shadow(0 0 2px #FFC928); }
+  50% { opacity: 1; filter: drop-shadow(0 0 10px #FFC928) drop-shadow(0 0 18px #F15A24); }
+}
+@keyframes bulb-twinkle-b {
+  0%, 100% { opacity: 1; filter: drop-shadow(0 0 10px #FFC928) drop-shadow(0 0 18px #E52B2B); }
+  50% { opacity: 0.45; filter: drop-shadow(0 0 2px #FFC928); }
+}
+.anim-bulb-a { animation: bulb-twinkle-a 1.2s ease-in-out infinite; }
+.anim-bulb-b { animation: bulb-twinkle-b 1.2s ease-in-out infinite 0.6s; }
+
+/* Celebration Popper Cannon & Ballistics */
+@keyframes popper-cannon-kick {
+  0% { transform: translate(0, 0) rotate(0deg) scale(0.6); opacity: 0; }
+  18% { transform: translate(-8px, 6px) rotate(-8deg) scale(1.15); opacity: 1; }
+  35% { transform: translate(0, 0) rotate(0deg) scale(1); opacity: 1; }
+  85% { opacity: 1; }
+  100% { transform: translate(0, 15px) scale(0.9); opacity: 0; }
+}
+@keyframes popper-particle-spray {
+  0% { transform: translate(0, 0) scale(0.2) rotate(0deg); opacity: 0; }
+  15% { opacity: 1; }
+  100% { transform: translate(var(--tx, 80px), var(--ty, -130px)) scale(1) rotate(420deg); opacity: 0; }
+}
+.anim-popper-recoil { animation: popper-cannon-kick 1.8s cubic-bezier(0.2, 0.9, 0.3, 1) forwards; }
+.anim-pop-p1 { --tx: -70px; --ty: -140px; animation: popper-particle-spray 1.4s ease-out forwards; }
+.anim-pop-p2 { --tx: -20px; --ty: -180px; animation: popper-particle-spray 1.5s ease-out forwards 0.04s; }
+.anim-pop-p3 { --tx: 45px; --ty: -150px; animation: popper-particle-spray 1.4s ease-out forwards 0.08s; }
+.anim-pop-p4 { --tx: 90px; --ty: -110px; animation: popper-particle-spray 1.6s ease-out forwards 0.02s; }
+
+/* Daily Badge Flame Corona */
+@keyframes flame-corona-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.anim-corona-spin { animation: flame-corona-spin 12s linear infinite; transform-origin: 32px 32px; }
+
+/* Tactile button bounce */
+.tactile-btn {
+  transition: all 0.12s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.tactile-btn:active {
+  transform: translateY(3px);
 }
 
 @media (prefers-reduced-motion: reduce) {

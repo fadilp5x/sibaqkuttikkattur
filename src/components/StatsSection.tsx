@@ -19,7 +19,7 @@ function useCountUp(target: string, run: boolean, delayMs: number = 0) {
     const end = parseInt(match[1].replace(/,/g, ''), 10);
     const suffix = match[2];
     const duration = 1400;
-    
+
     const timeout = setTimeout(() => {
       const start = performance.now();
       const tick = (now: number) => {
@@ -39,34 +39,56 @@ function useCountUp(target: string, run: boolean, delayMs: number = 0) {
       clearTimeout(timeout);
     };
   }, [run, target, delayMs]);
-  
+
   return { display, done };
 }
 
 function StatCard({ stat, run, index }: { stat: Stat; run: boolean; index: number }) {
-  const { display, done } = useCountUp(stat.value, run, index * 150);
-  
-  // Use a cycle of the 4 brand colors for accents
-  const colors = ['bg-flame', 'bg-ember', 'bg-marigold', 'bg-leaf'];
-  const glowColors = ['shadow-flame/30', 'shadow-ember/30', 'shadow-marigold/30', 'shadow-leaf/30'];
-  const color = colors[index % colors.length];
-  const glow = glowColors[index % glowColors.length];
+  const { display, done } = useCountUp(stat.value, run, index * 140);
+
+  // Four distinct official brand color accents
+  const styles = [
+    { border: 'border-flame', text: 'text-flame', diamond: 'bg-flame', glow: 'shadow-[0_12px_28px_rgba(241,90,36,0.18)]' },
+    { border: 'border-ember', text: 'text-ember', diamond: 'bg-ember', glow: 'shadow-[0_12px_28px_rgba(229,43,43,0.18)]' },
+    { border: 'border-marigold', text: 'text-marigold', diamond: 'bg-marigold', glow: 'shadow-[0_12px_28px_rgba(255,201,40,0.22)]' },
+    { border: 'border-leaf', text: 'text-leaf', diamond: 'bg-leaf', glow: 'shadow-[0_12px_28px_rgba(54,173,80,0.18)]' },
+  ];
+  const s = styles[index % styles.length];
 
   return (
-    <div className={`relative overflow-hidden rounded-2xl bg-white p-6 shadow-sm ring-1 ring-black/5 transition-all duration-300 sm:p-8 ${done ? `shadow-lg ${glow}` : ''}`}>
-      <span className={`absolute -right-6 -top-6 h-20 w-20 rounded-full opacity-10 blur-xl ${color}`} aria-hidden="true" />
-      <span className={`absolute left-0 top-0 h-1 w-full ${color}`} aria-hidden="true" />
-      
-      <p className={`display text-5xl text-ink sm:text-6xl ${done ? 'animate-pop' : ''}`}>
+    <div
+      className={`group relative overflow-hidden rounded-3xl border-2 ${s.border} bg-white p-6 sm:p-8 shadow-sm transition-all duration-500 hover:-translate-y-1.5 ${
+        done ? s.glow : ''
+      }`}
+    >
+      {/* Top accent badge & decorative corner diamond */}
+      <span className={`diamond absolute -right-3 -top-3 h-8 w-8 ${s.diamond} opacity-80`} aria-hidden="true" />
+      <span className={`diamond absolute left-4 top-4 h-2 w-2 ${s.diamond}`} aria-hidden="true" />
+
+      {/* Large animated number */}
+      <p className={`display text-5xl sm:text-6xl lg:text-7xl ${s.text} tracking-tight font-extrabold transition-transform duration-300 ${
+        done ? 'scale-100' : 'scale-95'
+      }`}>
         {display}
       </p>
-      <p className="mt-2 font-head text-sm font-extrabold uppercase tracking-[0.2em] text-ink">{stat.label}</p>
-      {stat.note && <p className="mt-1 text-xs leading-relaxed text-ink/50">{stat.note}</p>}
+
+      {/* Label and descriptive text */}
+      <p className="mt-3 font-head text-base sm:text-lg font-extrabold uppercase tracking-[0.16em] text-ink">
+        {stat.label}
+      </p>
+      {stat.note && (
+        <p className="mt-1.5 text-xs sm:text-sm leading-relaxed text-ink/70 font-medium">
+          {stat.note}
+        </p>
+      )}
+
+      {/* Bottom subtle color stripe */}
+      <div className={`absolute inset-x-0 bottom-0 h-1.5 ${s.diamond}`} />
     </div>
   );
 }
 
-/** Institutional statistics — count-up runs once per page visit. */
+/** Institutional statistics — count-up runs once per page visit on a warm carnival cream foundation. */
 export default function StatsSection() {
   const [stats, setStats] = useState<Stat[]>([]);
   const [run, setRun] = useState(false);
@@ -86,15 +108,18 @@ export default function StatsSection() {
           io.disconnect();
         }
       },
-      { threshold: 0.3 }
+      { threshold: 0.25 }
     );
     io.observe(el);
     return () => io.disconnect();
   }, []);
 
   return (
-    <section id="stats" className="relative scroll-mt-20 py-20 sm:py-24">
-      <GeometricSparkles className="absolute top-10 left-[10%] w-[80%] opacity-30 pointer-events-none" />
+    <section id="stats" className="relative scroll-mt-20 py-20 sm:py-28 bg-[#FFF8E8] border-b border-black/5 overflow-hidden">
+      {/* Ambient background sparkles */}
+      <GeometricSparkles className="absolute top-10 left-[8%] w-[85%] opacity-35 pointer-events-none" />
+      <div className="pattern-dots absolute inset-0 opacity-30 pointer-events-none" />
+
       <div className="container-x relative z-10" ref={ref}>
         <SectionHead
           kicker="Our reach"
@@ -105,15 +130,15 @@ export default function StatsSection() {
           }
           note="The Darul Huda institutional network behind the fest — across campuses, disciplines and cultures."
         />
-        <div ref={ref} className="mt-10 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
+        <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
           {stats.map((s, i) => (
             <Reveal key={s.id} delay={i * 90}>
               <StatCard stat={s} run={run} index={i} />
             </Reveal>
           ))}
           {stats.length === 0 && (
-            <div className="col-span-2 py-10 text-center text-sm text-ink/40 lg:col-span-4">
-              Statistics will appear here once published.
+            <div className="col-span-full py-12 text-center text-sm font-bold text-ink/40">
+              Loading verified festival statistics…
             </div>
           )}
         </div>
